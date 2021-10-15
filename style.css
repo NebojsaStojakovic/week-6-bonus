@@ -220,7 +220,6 @@ body.grid .header__grid i:active {
     border-radius: 10px;
     width: 70%;
     height: 90%;
-    overflow-y: scroll;
     display: none;
     padding: 23px;
 	opacity: 1;
@@ -457,6 +456,7 @@ body.grid .header__grid i:active {
 	.popup {
 		height: 100%;
 		width: 100%;
+		overflow-y: scroll;
 	}
 	.popup__content {
 		flex-direction: column;
