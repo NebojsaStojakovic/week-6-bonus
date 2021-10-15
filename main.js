@@ -31,6 +31,9 @@ const addImagesToGallery = photos => {
 		let el = document.createElement("div");
 		el.classList.add('gallery__item');
 		el.classList.add(`${photo.id}`)
+		if (photo.alt_description === null) {
+			photo.alt_description = 'Unsplash image'
+		}
 		el.innerHTML =
 			`<a class="gallery__link" href="#">
                     <img class="gallery__image" src="${photo.urls.regular}"
@@ -53,7 +56,6 @@ const addImagesToGallery = photos => {
                         </div>
                     </div>
                 </a>`;
-
 		el.addEventListener('click', (e) => {
 			e.preventDefault();
 			const content = photos.find(img => img.id === el.classList[1])
@@ -81,7 +83,7 @@ const addImagesToGallery = photos => {
 						<span class="popup__user">@${content.user.username}</span>
 					</div>
 				</div>	
-					<a href="${content.user.links.portfolio}" target="_blank" class="popup__portfolio">Check out my portfolio</a>
+					<a href="https://unsplash.com/${content.user.username}" target="_blank" class="popup__portfolio">Check out my portfolio</a>
 				</div>
 				<div class="popup__profile-social">
 					<a class="popup__profile-social-link" href="https://www.instagram.com/${content.user.instagram_username}" target="_blank">
@@ -118,13 +120,6 @@ const addImagesToGallery = photos => {
 			</div>
 		</div>
 			`
-			let popupPort = document.querySelectorAll('.popup__portfolio');
-			popupPort.forEach(port => {
-				if (content.user.portfolio_url === null) {
-					port.style.display = 'none'
-					port.style.pointerEvents = "none"
-				}
-			})
 			let popupDesc = document.querySelectorAll('.popup__desc');
 			popupDesc.forEach(desc => {
 				if (content.alt_description === null) {
@@ -153,7 +148,10 @@ const addImagesToGallery = photos => {
 			});
 			window.addEventListener('keyup', (e) => {
 				e.preventDefault();
-				if (e.key == 'Escape') { modal.classList.remove('showModal') }
+				if (e.key == 'Escape') {
+					modal.classList.remove('showModal');
+					document.body.classList.toggle('lock-scroll');
+				}
 			});
 		};
 	});
